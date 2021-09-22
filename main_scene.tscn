@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://commands.gd" type="Script" id=1]
+[ext_resource path="res://expression.gd" type="Script" id=2]
+[ext_resource path="res://vector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://readonly_vector.tscn" type="PackedScene" id=4]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="ColorRect" parent="."]
+anchor_right = 0.8
+anchor_bottom = 0.7
+color = Color( 0.145098, 0.145098, 0.164706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="centre" type="Control" parent="background"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vectorA" parent="background/centre" instance=ExtResource( 3 )]
+
+[node name="vectorB" parent="background/centre" instance=ExtResource( 3 )]
+vector_name = "b"
+
+[node name="vectorX" parent="background/centre" instance=ExtResource( 4 )]
+
+[node name="Panel" type="Panel" parent="."]
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="expression" type="LineEdit" parent="Panel"]
+anchor_left = 0.1
+anchor_right = 0.7
+anchor_bottom = 0.1
+text = "2 + 2"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="result" type="LineEdit" parent="Panel"]
+anchor_left = 0.7
+anchor_right = 1.0
+anchor_bottom = 0.1
+editable = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="commands" type="ItemList" parent="."]
+anchor_left = 0.8
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.7
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="command_search" type="LineEdit" parent="."]
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 0.05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="text_changed" from="Panel/expression" to="Panel/expression" method="_on_expression_text_changed"]
+[connection signal="text_changed" from="command_search" to="commands" method="_on_command_search_text_changed"]
